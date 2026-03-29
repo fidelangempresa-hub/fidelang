@@ -308,6 +308,41 @@
         <p style="margin-top: 10px; opacity: 0.6; letter-spacing: 1px;">Tecnología Lingüística para la Expansión Global</p>
     </footer>
 
+<script>
+        const form = document.getElementById('cotizarForm');
+        const mensajeExito = document.getElementById('mensaje-exito');
+        const mensajeError = document.getElementById('mensaje-error');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const boton = form.querySelector('.btn-submit');
+            const textoOriginal = boton.textContent;
+            
+            boton.textContent = 'Analizando sus documentos';
+            boton.disabled = true;
+            mensajeError.style.display = 'none';
+
+            const formData = new FormData(form);
+
+            try {
+                // Aquí llamamos a tu servidor Node.js
+                const response = await fetch('/cotizar', { method: 'POST', body: formData });
+                const data = await response.json();
+
+                if (!response.ok) throw new Error(data.error || 'Ocurrió un error en el servidor.');
+
+                // Magia: Ocultamos el formulario y mostramos el mensaje de éxito
+                form.style.display = 'none';
+                mensajeExito.style.display = 'block';
+
+            } catch (error) {
+                mensajeError.textContent = error.message;
+                mensajeError.style.display = 'block';
+                boton.textContent = textoOriginal;
+                boton.disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>
 
