@@ -227,35 +227,79 @@
 
     <section id="cotizacion" class="quote-section">
         <h2>Solicitud de Cotización</h2>
+        <p>Complete sus datos y adjunte sus documentos. Enviaremos el presupuesto a su correo.</p>
+        
         <div class="form-container">
-            <form action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST" enctype="multipart/form-data">
+            <form id="cotizarForm" enctype="multipart/form-data">
+                
                 <div class="form-group">
                     <label>Nombre Completo / Empresa</label>
-                    <input type="text" name="nombre" placeholder="Ej: Corporativo Global S.A." required>
+                    <input type="text" name="nombreCliente" placeholder="Ej: Corporativo Global S.A." required>
                 </div>
+                
                 <div class="form-group">
                     <label>Correo Electrónico</label>
-                    <input type="email" name="_replyto" placeholder="ejemplo@correo.com" required>
+                    <input type="email" name="emailCliente" placeholder="ejemplo@correo.com" required>
                 </div>
+
+                <div class="form-group">
+                    <label>Teléfono / WhatsApp</label>
+                    <input type="tel" name="telefonoCliente" placeholder="+57 300 000 0000" required>
+                </div>
+
                 <div class="form-group">
                     <label>Servicio Requerido</label>
                     <select name="servicio">
-                        <option value="localizacion-web">Localización Web</option>
-                        <option value="diagramacion">Diagramación</option>
-                        <option value="tecnica">Traducción Técnica</option>
-                        <option value="corporativa">Traducción Corporativa</option>
+                        <option value="Localización Web">Localización Web</option>
+                        <option value="Diagramación">Diagramación</option>
+                        <option value="Traducción Técnica">Traducción Técnica</option>
+                        <option value="Traducción Corporativa">Traducción Corporativa</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Subir Archivo para Cotizar</label>
-                    <input type="file" name="archivo">
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Idioma Origen</label>
+                        <select name="idiomaOrigen" required>
+                            <option value="" disabled selected>Seleccione...</option>
+                            <option value="Español">Español</option>
+                            <option value="Inglés">Inglés</option>
+                            <option value="Francés">Francés</option>
+							<option value="Portugués">Portugués</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Idioma Destino</label>
+                        <select name="idiomaDestino" required>
+                            <option value="" disabled selected>Seleccione...</option>
+                            <option value="Inglés">Inglés</option>
+                            <option value="Español">Español</option>
+                            <option value="Francés">Francés</option>
+							<option value="Portugués">Portugués</option>
+                        </select>
+                    </div>
                 </div>
+
+                <div class="form-group">
+                    <label>Subir Documentos para Cotizar (Puede seleccionar varios)</label>
+                    <input type="file" name="documentos" id="documentos" multiple required>
+                </div>
+
                 <div class="form-group">
                     <label>Mensaje Adicional</label>
                     <textarea name="mensaje" rows="4" placeholder="Detalles específicos del proyecto..."></textarea>
                 </div>
+
                 <button type="submit" class="btn-submit">Enviar Solicitud</button>
             </form>
+
+            <div id="mensaje-exito" style="display: none; text-align: center; padding: 30px; border: 2px dashed var(--verde-fidelang); border-radius: 8px; margin-top: 20px;">
+                <h3 style="color: var(--verde-fidelang); margin-bottom: 10px; font-family: var(--font-serif); font-size: 1.8rem;">¡Documentos Recibidos!</h3>
+                <p style="color: #666;">Nuestra IA ha procesado sus archivos correctamente. Revise su bandeja de entrada (y la carpeta de spam) para ver su cotización detallada.</p>
+            </div>
+            
+            <div id="mensaje-error" style="display: none; color: #d9534f; background: #fdf7f7; padding: 15px; border-radius: 4px; margin-top: 20px; text-align: center; font-weight: bold;">
+            </div>
         </div>
     </section>
 
@@ -266,3 +310,4 @@
 
 </body>
 </html>
+
